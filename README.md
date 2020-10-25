@@ -2,8 +2,12 @@
 
 [![Discord](https://img.shields.io/badge/chat-on%20discord-brightgreen.svg)](https://discord.gg/94MgDaP)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
+[![NPM](https://img.shields.io/npm/v/wrapper-mojang-api)](https://www.npmjs.com/package/wrapper-mojang-api)
 wrapper-mojang-api is a simple JavaScript wrapper for the Mojang API. The package is divided into 2 submodules: Yggdrasil for authentication, and Mojang for requests to the Mojang API. All requests are done asynchronously using the axios package.
+
+## Installation
+
+`npm install --save wrapper-mojang-api`
 
 ## Example
 
@@ -18,7 +22,7 @@ const questions = ["Answer1", "Answer2", "Answer3"];
 const name = "NewUsername";
 
 const main = async () => {
-  const { username, uuid, token } = await Yggdrasil.authenticate(email, password);
+  const { uuid, token } = await Yggdrasil.authenticate(email, password);
 
   if(await Mojang.needSecurity()) await Mojang.answerSecurity(token, questions);
 
