@@ -21,7 +21,7 @@ const { Yggdrasil, Mojang } = require("wrapper-mojang-api");
 const email = "user@domain.net";
 const password = "password";
 const questions = ["answer", "answer", "answer"];
-const name = "newname";
+const newName = "newname";
 
 const main = async () => {
   const { accessToken, selectedProfile } = await Yggdrasil.authenticate(email, password);
@@ -29,8 +29,8 @@ const main = async () => {
   if (await Mojang.needSecurity(accessToken)) await Mojang.answerSecurity(accessToken, questions);
 
   try {
-    await Mojang.changeName(selectedProfile.id, password, name, accessToken);
-    console.log("Name changed to "+ name);
+    await Mojang.changeName(selectedProfile.id, password, newName, accessToken);
+    console.log("Name changed to "+ newName);
   } catch (err) {
     console.log("Name change failed. Error code "+err.response.status);
   }
@@ -173,6 +173,7 @@ Returns whether or not you need to answer security questions for this ip address
 
 Parameters:
 * `token`- access token obtained through authentication
+
 Response:
 * `true` or `false`
 
@@ -181,6 +182,7 @@ Returns your security questions and the answer id's that need to be sent along w
 
 Parameters:
 * `token`- access token obtained through authentication
+
 Response:
 ```json
 [
