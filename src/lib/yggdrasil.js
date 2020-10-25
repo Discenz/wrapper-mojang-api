@@ -1,21 +1,16 @@
 const axios = require("axios");
 
-exports.authenticate = async (email, password, raw = false) => {
+exports.authenticate = async (email, password, requestUser = false) => {
   const json = {
       agent: { name: "Minecraft", version: 1 },
       username: email,
       password: password,
+      requestUser: requestUser,
       headers: {"Content-Type": "application/json"}
   }
 
-  try{
-    const req = await axios.post("https://authserver.mojang.com/authenticate", json);
-    if (raw) return req.data;
-    return {token: req.data.accessToken, uuid: req.data.selectedProfile.id, username: req.data.selectedProfile.name};
-  } catch (err) {
-    return err.response;
-  }
-
+  const req = await axios.post("https://authserver.mojang.com/authenticate", json);
+  return req.data;
 }
 
 exports.refresh = async (accessToken, clientToken, id, name) => {
@@ -29,12 +24,8 @@ exports.refresh = async (accessToken, clientToken, id, name) => {
     headers: {"Content-Type": "application/json"}
   }
 
-  try{
-    const req = await axios.post("https://authserver.mojang.com/refresh", json);
-    return req.data;
-  } catch (err) {
-    return err.response;
-  }
+  const req = await axios.post("https://authserver.mojang.com/refresh", json);
+  return req.data;
 }
 
 
