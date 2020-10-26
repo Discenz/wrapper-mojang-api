@@ -12,7 +12,7 @@ exports.nameToUuid = async (names) => {
     notArr = true;
   }
   const req = await axios.post("https://api.mojang.com/profiles/minecraft", names);
-  if(notArr) return req.data[0].id;
+  if(notArr && req.data.length == 1) return req.data[0].id;
   return req.data;
 }
 
@@ -46,9 +46,13 @@ exports.reserveName = async (name, token) => {
 }
 
 exports.needSecurity = async (token) => {
-  const req = await axios.get("https://api.mojang.com/user/security/location", {headers:{'Authorization':'Bearer '+token}});
-  if (req.status == 204) return false;
-  return true;
+  try {
+    const req = await axios.get("https://api.mojang.com/user/security/location", {headers:{'Authorization':'Bearer '+token}});
+    if (req.status == 204) return false;
+    return true;
+  } catch (err) {
+    return true;
+  }
 }
 
 exports.getSecurity = async (token) => {

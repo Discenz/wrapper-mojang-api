@@ -138,6 +138,26 @@ Response:
 ]
 ```
 
+### Mojang.profile(uuid)
+This returns the profile of the requested user (username, skin, cape...). You can only request the same profile 1 time a minute.
+
+Parameters:
+* `uuid` - uuid of account
+
+Response:
+```json
+{
+    "id": "<profile identifier>",
+    "name": "<player name>",
+    "properties": [
+        {
+            "name": "textures",
+            "value": "<base64 string>",
+        }
+    ]
+}
+```
+
 ### Mojang.changeName(uuid, password, name, token)
 This changes the name of the given account
 
